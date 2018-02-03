@@ -4,11 +4,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour {
 
     public GameObject ui;
-
     public SceneFader sceneFader;
-
     public string menuSceneName = "MainMenu";
 
+    // Make sure time is set to normal, in case of outside influence.
     private void Start() {
         Time.timeScale = 1f;
 
@@ -17,12 +16,14 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    // Press escape to turn on/off the pause menu.
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Toggle();
         }
     }
 
+    // Toggle the time scale, pause menu, and the Game Master's timer.
     public void Toggle() {
         ui.SetActive(!ui.activeSelf);
 
@@ -36,10 +37,12 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    // Reload current scene. 
     public void Retry() {
         sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
+    // Go back to the main menu.
     public void Menu() {
         sceneFader.FadeTo(menuSceneName);
     }

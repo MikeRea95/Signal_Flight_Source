@@ -11,6 +11,7 @@ public class GameStats : MonoBehaviour {
     public Text emptyPlanetsEaten;
     public Text time;
 
+    // Initialize all the player stats.
     private void Start() {
         SetDeaths();
         SetCowardly();
@@ -19,6 +20,7 @@ public class GameStats : MonoBehaviour {
         SetEmptyPlanetsEaten();
     }
 
+    // Every method in this region updates the appropriate player stat and determines the text color based on how well the player did.
     #region SET STATS
     private void SetDeaths() {
         deaths.text = PlayerPrefs.GetInt("Deaths", 0).ToString();

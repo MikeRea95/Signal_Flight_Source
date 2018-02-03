@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Killable : Killable {
+    
+    // Kill the player by emitting death particles and causing a lose state.
     public override void Die() {
         if (dead) 
             return;

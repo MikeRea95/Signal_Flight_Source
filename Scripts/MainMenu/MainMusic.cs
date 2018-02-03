@@ -8,17 +8,17 @@ public class MainMusic : MonoBehaviour {
     public float wait = 300;
     public GameObject next;
     public float current;
-	// Use this for initialization
-	void Start () {
+
+    // Reset birthday.
+    private void Start () {
         birthday = Time.time;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+    // Update time since spawn and play secret music after 5 minutes.
+	private void Update () {
         current = Time.time - birthday;
 
-        if (current > wait)
-        {
+        if (current > wait) {
             next.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }

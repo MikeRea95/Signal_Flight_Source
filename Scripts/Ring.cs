@@ -11,14 +11,14 @@ public class Ring : MonoBehaviour
     Vector3 xy;
     public float fade = .6f;
 
-
-    private void Start()
-    {
+    // Initialize birthday and current vector3.
+    private void Start() {
         birthday = Time.time;
         xy = new Vector3(transform.position.x, transform.position.y, 0);
     }
-    void Update()
-    {
+    
+    // Continuously grow larger until max size is reached, then destroy this GameObject.
+    private void Update() {
         transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
         sprite.color -= new Color(0, 0, 0, fade * Time.deltaTime);
         if (transform.localScale.y > range) {
@@ -26,22 +26,18 @@ public class Ring : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Chaser")
-        {
+    // Signal anything that this ring hits.
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "Chaser") {
             other.gameObject.GetComponent<Alien>().signal(xy, birthday);
         }
-        if (other.gameObject.tag == "Planet")
-        {
+        if (other.gameObject.tag == "Planet") {
             other.gameObject.GetComponent<Planet>().signal(xy, birthday);
         }
-        if (other.gameObject.tag == "Turret")
-        {
+        if (other.gameObject.tag == "Turret") {
             other.gameObject.GetComponent<Turret>().signal(xy);
         }
-        if (other.gameObject.tag == "Scout")
-        {
+        if (other.gameObject.tag == "Scout") {
             other.gameObject.GetComponent<Scout>().signal(xy, birthday);
         }
     }

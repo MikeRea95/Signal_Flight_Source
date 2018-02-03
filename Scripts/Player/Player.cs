@@ -10,11 +10,13 @@ public class Player : MonoBehaviour {
     public float maxY;
     public ParticleSystem playerParticleSystem;
 
+    // These ended up not being used. Forces are still weird.
     [Header("Don't touch these.")]
     public float maxSpeed;
     public float engineStrength;
     public Rigidbody2D rb;
 
+    // Press W to move forward and emit the flames. A and D to turn left and right, respectively.
     private void Update() {
         if (Input.GetKey(KeyCode.W)) {
             if(!playerParticleSystem.isEmitting)
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // This is unused.
     private void FixedUpdate() {
         if (rb.velocity.magnitude > maxSpeed) {
             rb.velocity = rb.velocity.normalized * maxSpeed;

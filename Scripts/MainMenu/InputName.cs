@@ -7,6 +7,7 @@ public class InputName : MonoBehaviour {
 
     public GameObject mainMenu;
 
+    // Upon pressing enter while entering the player's name, PlayerName is updated and main menu is opened.
     public void enterName(string name) {
         PlayerPrefs.SetString("PlayerName", name);
         MainMenu.playerName = name;

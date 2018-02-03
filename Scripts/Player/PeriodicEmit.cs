@@ -10,10 +10,10 @@ public class PeriodicEmit : MonoBehaviour {
     public Player player;
     public SpriteRenderer playerSprite;
     public float speedReduction;
-
     private float counter = 1;
 
-	void Update () {
+    // Countdown until the next signal is released. If space is pressed, toggle between emitting and stealth mode.
+	private void Update () {
         counter += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -33,8 +33,7 @@ public class PeriodicEmit : MonoBehaviour {
         if (!emit)
             return;
 
-        if (counter > period)
-        {
+        if (counter > period) { 
             GameObject.Instantiate(ring, transform.position, transform.rotation);
             counter = 0;
         }

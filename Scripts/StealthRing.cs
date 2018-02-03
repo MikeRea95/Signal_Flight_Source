@@ -10,33 +10,24 @@ public class StealthRing : MonoBehaviour
     public GameObject Player;
     public GameObject meSprite;
 
-    // Use this for initialization
-    void Start()
-    {
-
+    // Deactivate the sprite immediately.
+    private void Start() {
         meSprite.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // Continuously grow until a maximum size is reached, the destroy this GameObject.
+    private void Update() {
         transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
-        if (transform.localScale.y > range)
-        {
+        if (transform.localScale.y > range) {
             Destroy(gameObject);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject == Player)
-        {
-            //show ship
+    // Show the stealth ship if the player hits the stealth ring.
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject == Player) {
             meSprite.SetActive(true);
             meSprite.GetComponent<ShipMarker>().birthday = Time.time;
-            //print("entered");
         }
     }
-
-
 }

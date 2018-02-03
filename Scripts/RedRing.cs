@@ -10,32 +10,24 @@ public class RedRing : MonoBehaviour {
     public Vector3 target;
     public SpriteRenderer sprite;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Continuously grow larger, until a max distance is reached. Then destroy the ring.
+	private void Update () {
         transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
         sprite.color -= new Color(0, 0, 0, Time.deltaTime/2);
-        if (transform.localScale.y > range)
-        {
+        if (transform.localScale.y > range) {
             Destroy(gameObject);
         }
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Chaser")
-        {
+
+    // Signal an object if the ring hits something.
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "Chaser") {
             other.gameObject.GetComponent<Alien>().signal(target, birthday);
         }
-        if (other.gameObject.tag == "Scout")
-        {
+        if (other.gameObject.tag == "Scout") {
             other.gameObject.GetComponent<Scout>().signal(target, birthday);
         }
-        if (other.gameObject.tag == "Turret")
-        {
+        if (other.gameObject.tag == "Turret") {
             other.gameObject.GetComponent<Turret>().signal(transform.position);
         }
     }

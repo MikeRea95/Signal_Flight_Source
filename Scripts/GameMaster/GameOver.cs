@@ -9,6 +9,7 @@ public class GameOver : MonoBehaviour {
     public Text sadFeelsText;
     public Text hintText;
 
+    // Update the player's lose condition stats, then set the game over screen texts to the appropriate message.
     public void gameOver(GameOverCause cause) {
         updateStats(cause);
         sadFeelsText.text = setSadFeelsText(cause);
@@ -16,6 +17,7 @@ public class GameOver : MonoBehaviour {
         gameOverUI.SetActive(true);
     }
 
+    // Update the player's lose condition stats depending on why they lost.
     private void updateStats(GameOverCause cause) {
         PlayerPrefs.SetFloat("Time", PlayerPrefs.GetFloat("Time", 0f) + GameMaster.instance.totalTime);
         switch (cause) {
@@ -31,6 +33,7 @@ public class GameOver : MonoBehaviour {
         }
     }
 
+    // Set the dramatic text to hint to why the player lost.
     private string setSadFeelsText(GameOverCause cause) {
         string str = "You shouldn't see this. Let me know if you do.";
         switch (cause) {
@@ -47,6 +50,7 @@ public class GameOver : MonoBehaviour {
         return str;
     }
 
+    // Give the player a hint as to what to do next time they play.
     private string setHintText(GameOverCause cause) {
         string str = "You shouldn't see this. Let me know if you do.";
         switch (cause) {

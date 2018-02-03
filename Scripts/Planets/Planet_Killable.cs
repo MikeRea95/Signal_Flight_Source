@@ -9,6 +9,9 @@ public class Planet_Killable : Killable {
     public ParticleSystem planetParticleSystem;
     public Planet planet;
 
+    // Release death particles. Game over if player did not signal this planet.
+    // Otherwise, continue with empty planets eaten.
+    // Disable all sprite renderers and colliders, but allow the escape ships to continue.
     public override void Die() {
         if (dead)
             return;
@@ -31,6 +34,7 @@ public class Planet_Killable : Killable {
         StartCoroutine(waitForParticleDeath());
     }
 
+    // When there are no escape ships left, completely destroy this GameObject.
     IEnumerator waitForParticleDeath() {
         while(planetParticleSystem.particleCount > 0) {
             yield return null;

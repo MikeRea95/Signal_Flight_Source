@@ -10,13 +10,8 @@ public class Laser : MonoBehaviour {
     public float age = 0;
     public GameObject Player;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Continuously move forward.
+	private void Update () {
         transform.position += speed * dir * Time.deltaTime;
         age += Time.deltaTime;
         if(age > range)
@@ -25,10 +20,9 @@ public class Laser : MonoBehaviour {
         }
 	}
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject == Player)
-        {
+    // Kill the player.
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject == Player) {
             Player.GetComponent<Killable>().Die();
         }
     }

@@ -10,17 +10,21 @@ public class SceneFader : MonoBehaviour {
     public AnimationCurve curve;
     public GameObject child;
 
+    // Fade in. If scenefader is disabled, re-enable. 
+    // Scenefaders are typically disabled because it blocks the game view during development.
     private void Start() {
         if (child.activeSelf == false)
             child.SetActive(true);
         StartCoroutine(FadeIn());
     }
 
+    // Public method to fade out to a new scene.
     public void FadeTo(string scene) {
         StartCoroutine(FadeOut(scene));
     }
 
-    IEnumerator FadeIn() {
+    // Reactivate time and fade into the new scene.
+    private IEnumerator FadeIn() {
         Time.timeScale = 1f;
         float t = 1f;
 
@@ -32,7 +36,9 @@ public class SceneFader : MonoBehaviour {
         }
     }
 
-    IEnumerator FadeOut(string scene) {
+    // Deactivate time and fade out of the current scene, then load the new scene.
+    // If the new scene could not be found, load the error scene.
+    private IEnumerator FadeOut(string scene) {
         float t = 0f;
 
         while(t < 1f) {

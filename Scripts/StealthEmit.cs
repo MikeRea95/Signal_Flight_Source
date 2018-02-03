@@ -7,22 +7,15 @@ public class StealthEmit : MonoBehaviour {
     public float period;
     public float counter=0;
     public GameObject Player;
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Emit the stealth ring.
+    private void Update () {
         counter += Time.deltaTime;
-        if (counter > period)
-        {
+        if (counter > period) {
             counter = 0;
             GameObject baby = GameObject.Instantiate(ring, transform.position, transform.rotation);
             baby.SetActive(true);
             baby.GetComponentInChildren<StealthRing>().Player = Player;
-            
         }
-
     }
 }

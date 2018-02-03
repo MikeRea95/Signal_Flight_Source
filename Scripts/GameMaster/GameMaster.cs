@@ -10,6 +10,7 @@ public class GameMaster : MonoBehaviour {
     public float totalTime = 0f;
     public bool countTime = true;
 
+    // Create static reference to non-static class, allowing for direct reference to this object.
     private void Start() {
         if(instance != null) {
             Debug.LogError("More than one GameMaster script in scene!");
@@ -21,7 +22,8 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    IEnumerator timer() {
+    // A timer used for counting how long the player plays the game. This is displayed in the end screen.
+    private IEnumerator timer() {
         while (true) {
             if (countTime) {
                 totalTime += Time.deltaTime;
@@ -30,11 +32,13 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
+    // Pause the game and cause a lose state.
     public void GameOver(GameOverCause cause) {
         Time.timeScale = 0f;
         gameOver.gameOver(cause);
     }
 
+    // Pause the game and cause a win state.
     public void LevelComplete() {
         Time.timeScale = 0f;
         levelComplete.levelComplete();

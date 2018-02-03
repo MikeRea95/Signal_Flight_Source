@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Killable : MonoBehaviour {
 
+    // This is the base class for all inherited killable classes.
+    // Anything that causes death will call this.
+
     public GameObject deathParticles;
 
     public bool dead = false;

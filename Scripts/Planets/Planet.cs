@@ -16,19 +16,18 @@ public class Planet : MonoBehaviour {
     public GameObject Player;
     public SpriteRenderer sprite;
 
-    void Start () {
+    // Make sure the planet's particle system isn't running, then update the planet's sprite.
+    private void Start () {
         gameObject.GetComponent<ParticleSystem>().Stop();
         modifySprite();
 	}
 
+    // Get the sprite array. Then, start calculating which sprite to use. 
+    // Get the sine of the levels complete, so it's consistent between saves and retries.
+    // Multiply this sine by the number of sprites in the array to allow for all sprites to be used.
+    // Get the absolute value to not get negative numbers.
+    // Mod by the sprite array length to not go out of bounds.
     private void modifySprite() {
-        /*
-         * Get the sprite array. Then, start calculating which sprite to use. 
-         * Get the sine of the levels complete, so it's consistent between saves and retries.
-         * Multiply this sine by the number of sprites in the array to allow for all sprites to be used.
-         * Get the absolute value to not get negative numbers.
-         * Mod by the sprite array length to not go out of bounds.
-         */
         Sprite[] spriteArray = PlanetSprites.instance.planetSprites;
         float baseFloat = Mathf.Sin(PlayerPrefs.GetInt("LevelsComplete")) * spriteArray.Length;
         int index = (int)baseFloat;
@@ -45,22 +44,21 @@ public class Planet : MonoBehaviour {
         PlanetsCounter.planetSpritesSet++;
     }
 
-    public void signal(Vector3 inPos, float inBirth)
-    {
-        if (gotSignal == false)
-        {
+    // Start the escape ships and release planet's warning signal.
+    public void signal(Vector3 inPos, float inBirth) {
+        if (gotSignal == false) {
             PlanetsLeft.instance.OneFewerPlanet();
             gotSignal = true;
             gameObject.GetComponent<ParticleSystem>().Play();
             Instantiate(ring, transform.position, transform.rotation);
-            //play animation of ships flying away
-            if (evil)
-            {
+
+            // Play animation of ships flying away.
+            if (evil) {
                 GameObject a = Instantiate(Spawn, transform.position + new Vector3(-3, 0, 0), transform.rotation);
                 if(a.tag == "Chaser")
-                a.GetComponent<Alien>().Player = Player;
+                    a.GetComponent<Alien>().Player = Player;
                 if(a.tag == "Turret")
-                a.GetComponent<Turret>().Player = Player;
+                    a.GetComponent<Turret>().Player = Player;
                 a = Instantiate(Spawn, transform.position + new Vector3(3, 0, 0), transform.rotation);
                 if (a.tag == "Chaser")
                     a.GetComponent<Alien>().Player = Player;
@@ -68,25 +66,21 @@ public class Planet : MonoBehaviour {
                     a.GetComponent<Turret>().Player = Player;
             }
         }
-        if (inBirth > birthday)
-        {
+        if (inBirth > birthday) {
             birthday = inBirth;
             target = inPos;
         }
     }
-	// Update is called once per frame
-	void Update () {
-        if (evil && gotSignal)
-        {
+
+	// Emit a red ring if evil.
+	private void Update () {
+        if (evil && gotSignal) {
             count += Time.deltaTime;
-            if (count > period)
-            {
+            if (count > period) {
                 count = 0;
-                //emit red ring
                 GameObject newRing = Instantiate(redRing, transform.position, transform.rotation);
                 newRing.GetComponent<RedRing>().target = this.target;
                 newRing.GetComponent<RedRing>().birthday = this.birthday;
-
             }
         }
     }

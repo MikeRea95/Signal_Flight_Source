@@ -8,6 +8,8 @@ public class PlanetsLeft : MonoBehaviour {
     public Text planetsLeftText;
     public static PlanetsLeft instance;
 
+    // Create static reference to non-static class, allowing for direct reference to this object.
+    // Then update the goal for the level.
     private void Start() {
         if(instance != null) {
             Debug.LogError("More than one PlanetsLeft script in scene!");
@@ -24,6 +26,7 @@ public class PlanetsLeft : MonoBehaviour {
         planetsLeftText.text = planetsLeft + "/" + totalPlanets;
     }
 
+    // Reduce the number of planets needing warning by 1.
     public void OneFewerPlanet() {
         planetsLeft--;
         changeTextColor();
@@ -31,6 +34,7 @@ public class PlanetsLeft : MonoBehaviour {
         planetsLeftText.text = planetsLeft + "/" + totalPlanets;
     }
 
+    // Tell the player visually how well they're doing.
     private void changeTextColor() {
         if(planetsLeft == 0) {
             planetsLeftText.color = Color.green;
@@ -43,8 +47,9 @@ public class PlanetsLeft : MonoBehaviour {
         }
     }
 
-    public float getRemainingPlanets() {
-        return (float)planetsLeft / totalPlanets;
+    // Return how many planets are left.
+    public int getRemainingPlanets() {
+        return planetsLeft;
     }
 
 }

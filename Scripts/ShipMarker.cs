@@ -7,17 +7,11 @@ public class ShipMarker : MonoBehaviour {
     public float birthday;
     public float fade;
 
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Occassionally display a darker version of the ship.
+	private void Update () {
         float age = Time.time - birthday;
         gameObject.GetComponent<SpriteRenderer>().color *= (fade - age) / fade;
-        if(age >= fade)
-        {
+        if(age >= fade) {
             Destroy(gameObject);
         }
 	}

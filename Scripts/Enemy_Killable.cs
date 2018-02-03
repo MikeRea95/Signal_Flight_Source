@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy_Killable : Killable {
 
+    // If an enemy is killed, create the death particles and destroy the GameObject.
     public override void Die() {
         if (dead)
             return;
